@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping List</title>
+</head>
+<body>
+    <h2><span th:text="${user.userName}"/>'s shopping list:</h2>
+    <h3>Content of "<span th:text="${user.shoppingList.name}"/>":</h3>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+        </tr>
+        <tr th:each="entry: ${user.shoppingList.entries}">
+            <td th:text="${entry.itemName}"/>
+            <td th:text="${entry.amount}"/>
+        </tr>
+    </table>
+</body>
+</html>

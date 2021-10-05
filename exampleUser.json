@@ -1,0 +1,25 @@
+{
+  "id": null,
+  "shoppingList": {
+    "entries": [
+      {
+        "amount": 4,
+        "itemName": "Humans fall flat"
+      },
+      {
+        "amount": 1,
+        "itemName": "JackBox party"
+      },
+      {
+        "amount": 1,
+        "itemName": "JackBox party 2"
+      },
+      {
+        "amount": 1,
+        "itemName": "Skyrim"
+      }
+    ],
+    "name": "Games"
+  },
+  "userName": "Dinis Dermid"
+}
