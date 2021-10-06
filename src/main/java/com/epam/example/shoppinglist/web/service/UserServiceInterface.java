@@ -29,7 +29,15 @@ public interface UserServiceInterface {
 
     /**
      * Creates a new user and saves it.
+     *
      * @param user The User that should be saved.
      */
     void addUser(UserView user);
+
+    /**
+     * Deletes a user with the given id if its exists.
+     *
+     * @param id The id of the user.
+     */
+    void deleteUserById(Long id);
 }

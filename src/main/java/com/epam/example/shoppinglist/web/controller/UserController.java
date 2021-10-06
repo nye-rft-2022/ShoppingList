@@ -17,8 +17,9 @@ import java.util.List;
 public class UserController {
 
     private static final String GET_USER_MAPPING = "/user/{id}";
-    private static final String GET_ALL_USER_MAPPING = "/users";
+    private static final String GET_ALL_USER_MAPPING = "/user/users";
     private static final String ADD_USER = "/user/add";
+    public static final String DELETE_USER_MAPPING = "/user/delete/{id}";
 
 
     private UserServiceInterface userService;
@@ -49,6 +50,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
+    //TODO add request object
     /**
      * Adds a user to the DB.
      * If the users id already in use will throw {@link UserAlreadyExistException}.
@@ -60,5 +62,13 @@ public class UserController {
          userService.addUser(user);
     }
 
-    //TODO Delete endpoint
+    /**
+     * Deletes user from the DB.
+     *
+     * @param id The id of the user.
+     */
+    @DeleteMapping(DELETE_USER_MAPPING)
+    public void deleteUser(@PathVariable long id){
+        userService.deleteUserById(id);
+    }
 }

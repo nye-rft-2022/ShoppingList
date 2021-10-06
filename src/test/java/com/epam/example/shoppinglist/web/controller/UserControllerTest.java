@@ -118,6 +118,16 @@ public class UserControllerTest {
         //then exception thrown
     }
 
+    @Test
+    public void testDeleteUserShouldDelegateToUserService() {
+        //given
+        //when
+        underTest.deleteUser(USER_ID);
+
+        //then
+        then(userService).should().deleteUserById(USER_ID);
+    }
+
     private UserView createUser(Long userId, String username, String listName) {
         return UserView.builder()
                 .id(userId)
@@ -143,4 +153,6 @@ public class UserControllerTest {
                 .amount(quantity)
                 .build();
     }
+
+
 }

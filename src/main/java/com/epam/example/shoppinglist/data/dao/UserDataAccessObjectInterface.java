@@ -26,10 +26,17 @@ public interface UserDataAccessObjectInterface {
     Collection<UserEntity> getAllUser();
 
     /**
-     * Add the given user to the database.
+     * Adds the given user to the database.
      *
      * @param entity The entity that will be saved.
      * @throws UserAlreadyExistException If a user already exist the given id.
      */
     void addUser(UserEntity entity);
+
+    /**
+     * Deletes a user with the given id.
+     *
+     * @param id The id of the user.
+     */
+    void deleteUserById(Long id);
 }

@@ -116,6 +116,16 @@ public class DefaultUserDataAccessObjectTest {
         //then exception thrown
     }
 
+    @Test
+    public void testDeleteUserByIdShouldDelegateToRepository() {
+        //given
+        //when
+        underTest.deleteUserById(USER_ID);
+
+        //then
+        then(userRepository).should().deleteById(USER_ID);
+    }
+
     private Optional<UserEntity> createOptionalUser(){
         return Optional.of(createUser());
     }
@@ -150,4 +160,6 @@ public class DefaultUserDataAccessObjectTest {
         entry.setItemName(itemName);
         return entry;
     }
+
+
 }

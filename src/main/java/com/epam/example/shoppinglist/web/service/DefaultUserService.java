@@ -46,4 +46,9 @@ public class DefaultUserService implements UserServiceInterface{
         UserEntity userEntity = transformer.transform(user);
         userDataAccessObject.addUser(userEntity);
     }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userDataAccessObject.deleteUserById(id);
+    }
 }

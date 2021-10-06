@@ -40,4 +40,9 @@ public class DefaultUserDataAccessObject implements UserDataAccessObjectInterfac
             throw new UserAlreadyExistException("User with id: " + entity.getId() + " already exists.");
         }
     }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
