@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class ShoppingListEntryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "item_name", nullable = false)

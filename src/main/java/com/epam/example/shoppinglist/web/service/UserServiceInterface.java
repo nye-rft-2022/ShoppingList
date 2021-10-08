@@ -1,6 +1,7 @@
 package com.epam.example.shoppinglist.web.service;
 
 import com.epam.example.shoppinglist.data.domain.UserEntity;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
 import com.epam.example.shoppinglist.web.domain.UserView;
 
 import java.util.List;
@@ -30,9 +31,9 @@ public interface UserServiceInterface {
     /**
      * Creates a new user and saves it.
      *
-     * @param user The User that should be saved.
+     * @param request The User that should be saved.
      */
-    void addUser(UserView user);
+    void addUser(CreateUserRequest request);
 
     /**
      * Deletes a user with the given id if its exists.

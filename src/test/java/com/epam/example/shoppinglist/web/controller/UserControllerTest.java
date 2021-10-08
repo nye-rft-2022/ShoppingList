@@ -1,12 +1,12 @@
 package com.epam.example.shoppinglist.web.controller;
 
-import com.epam.example.shoppinglist.error.UserAlreadyExistException;
+import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
 import com.epam.example.shoppinglist.web.domain.ShoppingListEntryView;
 import com.epam.example.shoppinglist.web.domain.ShoppingListView;
 import com.epam.example.shoppinglist.web.domain.UserView;
 import com.epam.example.shoppinglist.web.service.UserServiceInterface;
-import org.junit.jupiter.api.DisplayName;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -34,6 +34,7 @@ public class UserControllerTest {
     private static final String OTHER_USER_NAME = "Other Test User";
     private static final String LIST_NAME = "List name";
     private static final String OTHER_LIST_NAME = "Other list name";
+    private static final String EMAIL_ADDRESS = "test_user@mail.com";
 
     @InjectMocks
     private UserController underTest;
@@ -95,25 +96,37 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testAddUserShouldDelegateToUserServiceAndDoNotThrowExceptionWhenCalledWithValidUserToAdd() {
+    public void testAddUserShouldDelegateToUserServiceAndNotThrowExceptionWhenCalledWithValidUser() {
         //given
-        UserView userToAdd = createUser(null, USER_NAME, LIST_NAME);
+        CreateUserRequest request = createCreateUserRequest(USER_NAME, EMAIL_ADDRESS, LIST_NAME);
 
         //when
-        underTest.addUser(userToAdd);
+        underTest.addUser(request);
 
         //then
-        then(userService).should().addUser(userToAdd);
+        then(userService).should().addUser(request);
     }
 
-    @Test(expectedExceptions = UserAlreadyExistException.class)
-    public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithValidUserToAdd() {
+    @Test(expectedExceptions = EmailAlreadyInUseException.class)
+    public void testAddUserShouldThrowEmailAlreadyInUseExceptionWhenCalledWithExistingEmail() {
         //given
-        UserView userToAdd = createUser(null, USER_NAME, LIST_NAME);
-        willThrow(UserAlreadyExistException.class).given(userService).addUser(userToAdd);
+        CreateUserRequest request = createCreateUserRequest(USER_NAME, EMAIL_ADDRESS, LIST_NAME);
+        willThrow(EmailAlreadyInUseException.class).given(userService).addUser(request);
 
         //when
-        underTest.addUser(userToAdd);
+        underTest.addUser(request);
+
+        //then exception thrown
+    }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithInValidUser() {
+        //given
+        CreateUserRequest request = createCreateUserRequest(USER_NAME, EMAIL_ADDRESS, LIST_NAME);
+        willThrow(RuntimeException.class).given(userService).addUser(request);
+
+        //when
+        underTest.addUser(request);
 
         //then exception thrown
     }
@@ -126,6 +139,14 @@ public class UserControllerTest {
 
         //then
         then(userService).should().deleteUserById(USER_ID);
+    }
+
+    private CreateUserRequest createCreateUserRequest(String username, String emailAddress, String listName){
+        return CreateUserRequest.builder()
+                .userName(username)
+                .emailAddress(emailAddress)
+                .shoppingList(createShoppingList(listName))
+                .build();
     }
 
     private UserView createUser(Long userId, String username, String listName) {
@@ -153,6 +174,4 @@ public class UserControllerTest {
                 .amount(quantity)
                 .build();
     }
-
-
 }

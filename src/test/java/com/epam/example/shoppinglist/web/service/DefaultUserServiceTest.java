@@ -5,6 +5,7 @@ import com.epam.example.shoppinglist.data.domain.ShoppingListEntity;
 import com.epam.example.shoppinglist.data.domain.ShoppingListEntryEntity;
 import com.epam.example.shoppinglist.data.domain.UserEntity;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
 import com.epam.example.shoppinglist.web.domain.ShoppingListEntryView;
 import com.epam.example.shoppinglist.web.domain.ShoppingListView;
 import com.epam.example.shoppinglist.web.domain.UserView;
@@ -42,6 +43,7 @@ public class DefaultUserServiceTest {
     private static final String OTHER_USER_NAME = "Test User B";
     private static final String LIST_NAME = "List name";
     private static final String OTHER_LIST_NAME = "Other list name";
+    private static final String EMAIL_ADDRESS = "test_user@mail.com";
 
     @Mock
     private UserDataAccessObjectInterface userDataAccessObject;
@@ -123,12 +125,12 @@ public class DefaultUserServiceTest {
     @Test
     public void testAddUserShouldDelegateToTransformerAndUserAccessObject() {
         //given
-        UserView userView = createUserView(USER_ID, USER_NAME, LIST_NAME);
+        CreateUserRequest request = createCreateUserRequest(USER_NAME, EMAIL_ADDRESS, LIST_NAME);
         UserEntity userEntity = createUserEntity(USER_ID, USER_NAME, LIST_ID, LIST_NAME);
-        given(transformer.transform(userView)).willReturn(userEntity);
+        given(transformer.transform(request)).willReturn(userEntity);
 
         //when
-        underTest.addUser(userView);
+        underTest.addUser(request);
 
         //then
         then(userDataAccessObject).should().addUser(userEntity);
@@ -156,6 +158,14 @@ public class DefaultUserServiceTest {
         entry.setItemName(ITEM_NAME);
         entry.setQuantity(ITEM_QUANTITY);
         return entry;
+    }
+
+    private CreateUserRequest createCreateUserRequest(String username, String emailAddress, String listName){
+        return CreateUserRequest.builder()
+                .userName(username)
+                .emailAddress(emailAddress)
+                .shoppingList(createShoppingListView(listName))
+                .build();
     }
 
     private UserView createUserView(Long userId, String username, String listName) {

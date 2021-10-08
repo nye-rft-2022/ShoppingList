@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Custom exception to represent when user already exists.
  */
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UserAlreadyExistException extends RuntimeException{
-    public UserAlreadyExistException(String message) {
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Email address already in use.")
+public class EmailAlreadyInUseException extends RuntimeException{
+    public EmailAlreadyInUseException(String message) {
         super(message);
     }
 }

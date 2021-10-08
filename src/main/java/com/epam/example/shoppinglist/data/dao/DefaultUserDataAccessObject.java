@@ -2,9 +2,11 @@ package com.epam.example.shoppinglist.data.dao;
 
 import com.epam.example.shoppinglist.data.domain.UserEntity;
 import com.epam.example.shoppinglist.data.repository.UserRepository;
-import com.epam.example.shoppinglist.error.UserAlreadyExistException;
+import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -36,13 +38,21 @@ public class DefaultUserDataAccessObject implements UserDataAccessObjectInterfac
     public void addUser(UserEntity entity) {
         try{
             userRepository.save(entity);
+        }catch (DataIntegrityViolationException e){
+            throw new EmailAlreadyInUseException("Email address: "+ entity.getEmailAddress() + " already in use.");
         }catch (Exception e){
-            throw new UserAlreadyExistException("User with id: " + entity.getId() + " already exists.");
+            throw new RuntimeException("Opps, something went wrong.");
         }
     }
 
     @Override
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        try{
+            userRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new UserNotFoundException("User not found with id: " + id);
+        }catch (Exception e){
+            throw new RuntimeException("Opps, something went wrong.");
+        }
     }
 }

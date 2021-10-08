@@ -2,7 +2,7 @@ package com.epam.example.shoppinglist.data.dao;
 
 import com.epam.example.shoppinglist.data.domain.UserEntity;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
-import com.epam.example.shoppinglist.error.UserAlreadyExistException;
+import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
 
 import java.util.Collection;
 
@@ -29,7 +29,7 @@ public interface UserDataAccessObjectInterface {
      * Adds the given user to the database.
      *
      * @param entity The entity that will be saved.
-     * @throws UserAlreadyExistException If a user already exist the given id.
+     * @throws EmailAlreadyInUseException If a user already exist the given id.
      */
     void addUser(UserEntity entity);
 

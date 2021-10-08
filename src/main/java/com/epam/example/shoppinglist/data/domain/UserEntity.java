@@ -16,11 +16,14 @@ import javax.persistence.*;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String emailAddress;
 
     @OneToOne(targetEntity = ShoppingListEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "list_id", referencedColumnName = "id")

@@ -1,14 +1,13 @@
 package com.epam.example.shoppinglist.data.dao;
 
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
 import com.epam.example.shoppinglist.data.domain.ShoppingListEntity;
 import com.epam.example.shoppinglist.data.domain.ShoppingListEntryEntity;
 import com.epam.example.shoppinglist.data.domain.UserEntity;
 import com.epam.example.shoppinglist.data.repository.UserRepository;
-import com.epam.example.shoppinglist.error.UserAlreadyExistException;
+import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
 import org.mockito.*;
 import org.testng.annotations.AfterMethod;
@@ -104,11 +103,11 @@ public class DefaultUserDataAccessObjectTest {
         then(userRepository).should().save(user);
     }
 
-    @Test(expectedExceptions = UserAlreadyExistException.class)
+    @Test(expectedExceptions = EmailAlreadyInUseException.class)
     public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithExistingId() {
         //given
         UserEntity user = createUser();
-        willThrow(UserAlreadyExistException.class).given(userRepository).save(user);
+        willThrow(EmailAlreadyInUseException.class).given(userRepository).save(user);
 
         //when
         underTest.addUser(user);

@@ -3,8 +3,6 @@ package com.epam.example.shoppinglist.web.domain;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * Web layer representation of a user.
  */
@@ -13,6 +11,7 @@ import java.util.List;
 public class UserView implements Comparable<UserView>{
     private Long id;
     private String userName;
+    private String emailAddress;
     private ShoppingListView shoppingList;
 
     @Override

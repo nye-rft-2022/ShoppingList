@@ -1,6 +1,7 @@
 package com.epam.example.shoppinglist.web.transformer;
 
 import com.epam.example.shoppinglist.data.domain.UserEntity;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
 import com.epam.example.shoppinglist.web.domain.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,16 +58,16 @@ public class UserTransformer {
     /**
      * Transforms a single {@link UserView} to a {@link UserEntity}.
      *
-     * @param view The {@link UserView} to be transformed.
+     * @param request The {@link UserView} to be transformed.
      * @return The transformed {@link UserEntity} or null if the given entity is null.
      */
-    public UserEntity transform(UserView view){
+    public UserEntity transform(CreateUserRequest request){
         UserEntity result = null;
-        if(view != null){
+        if(request != null){
             result = new UserEntity();
-            result.setId(view.getId());
-            result.setUserName(view.getUserName());
-            result.setShoppingList(transformer.transform(view.getShoppingList()));
+            result.setEmailAddress(request.getEmailAddress());
+            result.setUserName(request.getUserName());
+            result.setShoppingList(transformer.transform(request.getShoppingList()));
         }
         return result;
     }

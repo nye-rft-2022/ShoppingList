@@ -16,7 +16,7 @@ import java.util.List;
 public class ShoppingListEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "list_name", nullable = false)

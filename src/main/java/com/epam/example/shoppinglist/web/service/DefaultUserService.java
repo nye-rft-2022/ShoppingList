@@ -2,6 +2,7 @@ package com.epam.example.shoppinglist.web.service;
 
 import com.epam.example.shoppinglist.data.dao.UserDataAccessObjectInterface;
 import com.epam.example.shoppinglist.data.domain.UserEntity;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
 import com.epam.example.shoppinglist.web.domain.UserView;
 import com.epam.example.shoppinglist.web.transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class DefaultUserService implements UserServiceInterface{
     }
 
     @Override
-    public void addUser(UserView user) {
-        UserEntity userEntity = transformer.transform(user);
+    public void addUser(CreateUserRequest request) {
+        UserEntity userEntity = transformer.transform(request);
         userDataAccessObject.addUser(userEntity);
     }
 
