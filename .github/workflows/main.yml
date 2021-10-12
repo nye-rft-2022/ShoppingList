@@ -15,3 +15,12 @@ jobs:
           distribution: 'adopt'
       - name: Compile with Maven
         run: mvn compile
+      - name: Test with Maven
+        run: mvn test
+      - name: Coverage with JaCoCo
+        run: mvn jacoco:report
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: shopping-list-coverage
+          path: ./target/site/jacoco
