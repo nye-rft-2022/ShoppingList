@@ -103,7 +103,7 @@ public class DefaultUserDataAccessObjectTest {
         then(userRepository).should().save(user);
     }
 
-    @Test(expectedExceptions = EmailAlreadyInUseException.class)
+    @Test(expectedExceptions = RuntimeException.class)
     public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithExistingId() {
         //given
         UserEntity user = createUser();
