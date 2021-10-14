@@ -24,7 +24,7 @@ public class ShoppingListTransformer {
      * @param entity A {@link ShoppingListEntity} to be transformed.
      * @return A transformed {@link ShoppingListView} or null if called with null.
      */
-    public ShoppingListView transform(ShoppingListEntity entity){
+    public ShoppingListView transformToView(ShoppingListEntity entity){
         ShoppingListView result = null;
         if(entity != null){
             result = ShoppingListView.builder()
@@ -41,7 +41,7 @@ public class ShoppingListTransformer {
      * @param view A {@link ShoppingListView} to be transformed.
      * @return A transformed {@link ShoppingListEntity} or null if called with null.
      */
-    public ShoppingListEntity transform(ShoppingListView view){
+    public ShoppingListEntity transformToEntity(ShoppingListView view){
         ShoppingListEntity result = null;
         if(view != null){
             result = new ShoppingListEntity();

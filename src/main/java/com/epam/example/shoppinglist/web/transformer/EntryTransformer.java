@@ -1,9 +1,7 @@
 package com.epam.example.shoppinglist.web.transformer;
 
-import com.epam.example.shoppinglist.data.domain.ShoppingListEntity;
 import com.epam.example.shoppinglist.data.domain.ShoppingListEntryEntity;
 import com.epam.example.shoppinglist.web.domain.ShoppingListEntryView;
-import com.epam.example.shoppinglist.web.domain.ShoppingListView;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;

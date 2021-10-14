@@ -10,6 +10,8 @@ import com.epam.example.shoppinglist.data.repository.UserRepository;
 import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
 import com.epam.example.shoppinglist.error.UserNotFoundException;
 import org.mockito.*;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -104,10 +106,22 @@ public class DefaultUserDataAccessObjectTest {
     }
 
     @Test(expectedExceptions = EmailAlreadyInUseException.class)
-    public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithExistingId() {
+    public void testAddUserShouldThrowUserAlreadyExistExceptionWhenCalledWithExistingEmail() {
         //given
         UserEntity user = createUser();
-        willThrow(EmailAlreadyInUseException.class).given(userRepository).save(user);
+        willThrow(DataIntegrityViolationException.class).given(userRepository).save(user);
+
+        //when
+        underTest.addUser(user);
+
+        //then exception thrown
+    }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testAddUserShouldThrowRuntimeExceptionWhenUnhandledExceptionHappens() {
+        //given
+        UserEntity user = createUser();
+        willThrow(Exception.class).given(userRepository).save(user);
 
         //when
         underTest.addUser(user);
@@ -123,6 +137,28 @@ public class DefaultUserDataAccessObjectTest {
 
         //then
         then(userRepository).should().deleteById(USER_ID);
+    }
+
+    @Test(expectedExceptions = UserNotFoundException.class)
+    public void testDeleteUserByIdShouldThrowUserNotFoundExceptionWhenCalledWithNonExistingId() {
+        //given
+        willThrow(EmptyResultDataAccessException.class).given(userRepository).deleteById(USER_ID);
+
+        //when
+        underTest.deleteUserById(USER_ID);
+
+        //then exception thrown
+    }
+
+    @Test(expectedExceptions = RuntimeException.class)
+    public void testDeleteUserByIdShouldThrowRuntimeExceptionWhenUnhandledExceptionHappens() {
+        //given
+        willThrow(Exception.class).given(userRepository).deleteById(USER_ID);
+
+        //when
+        underTest.deleteUserById(USER_ID);
+
+        //then exception thrown
     }
 
     private Optional<UserEntity> createOptionalUser(){

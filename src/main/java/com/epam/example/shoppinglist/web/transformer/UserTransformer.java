@@ -49,7 +49,7 @@ public class UserTransformer {
             result = UserView.builder()
                     .id(entity.getId())
                     .userName(entity.getUserName())
-                    .shoppingList(transformer.transform(entity.getShoppingList()))
+                    .shoppingList(transformer.transformToView(entity.getShoppingList()))
                     .build();
         }
         return result;
@@ -67,7 +67,7 @@ public class UserTransformer {
             result = new UserEntity();
             result.setEmailAddress(request.getEmailAddress());
             result.setUserName(request.getUserName());
-            result.setShoppingList(transformer.transform(request.getShoppingList()));
+            result.setShoppingList(transformer.transformToEntity(request.getShoppingList()));
         }
         return result;
     }
