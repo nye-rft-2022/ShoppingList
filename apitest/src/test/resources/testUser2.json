@@ -1,0 +1,14 @@
+{
+    "id": 0,
+    "shoppingList": {
+      "entries": [
+        {
+          "amount": 0,
+          "itemName": "testItem"
+        }
+      ],
+      "name": "testshoppingListName"
+    },
+    "userName": "testUserName2",
+    "emailAddress": "alreadyExistingEmail"
+  }
