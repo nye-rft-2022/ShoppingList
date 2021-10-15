@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntryTransformer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unittestdemo</a> &gt; <a href="index.source.html" class="el_package">com.epam.example.shoppinglist.web.transformer</a> &gt; <span class="el_source">EntryTransformer.java</span></div><h1>EntryTransformer.java</h1><pre class="source lang-java linenums">package com.epam.example.shoppinglist.web.transformer;
+
+import com.epam.example.shoppinglist.data.domain.ShoppingListEntryEntity;
+import com.epam.example.shoppinglist.web.domain.ShoppingListEntryView;
+import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Transformer class that transforms {@link ShoppingListEntryEntity} objects to {@link ShoppingListEntryView}.
+ */
+@Component
+<span class="fc" id="L15">public class EntryTransformer {</span>
+
+    /**
+     * Transforms a {@link Collection} of {@link ShoppingListEntryEntity} to a {@link List} of {@link ShoppingListEntryView}.
+     *
+     * @param entries The collection to be transformed.
+     * @return A transformed {@link List} of {@link ShoppingListEntryEntity} or null id called with null.
+     */
+    public List&lt;ShoppingListEntryView&gt; transformToView(Collection&lt;ShoppingListEntryEntity&gt; entries){
+<span class="fc" id="L24">        List&lt;ShoppingListEntryView&gt; result = null;</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if(entries != null){</span>
+<span class="fc" id="L26">            result = entries.stream()</span>
+<span class="fc" id="L27">                    .map(this::transformToView)</span>
+<span class="fc" id="L28">                    .collect(Collectors.toList());</span>
+        }
+<span class="fc" id="L30">        return result;</span>
+    }
+
+    /**
+     * Transforms a {@link Collection} of {@link ShoppingListEntryView} to a {@link List} of {@link ShoppingListEntryEntity}.
+     *
+     * @param entries The collection to be transformed.
+     * @return A transformed {@link List} of {@link ShoppingListEntryEntity} or null id called with null.
+     */
+    public List&lt;ShoppingListEntryEntity&gt; transformToEntity(Collection&lt;ShoppingListEntryView&gt; entries){
+<span class="fc" id="L40">        List&lt;ShoppingListEntryEntity&gt; result = null;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if(entries != null){</span>
+<span class="fc" id="L42">            result = entries.stream()</span>
+<span class="fc" id="L43">                    .map(this::transformToEntity)</span>
+<span class="fc" id="L44">                    .collect(Collectors.toList());</span>
+        }
+<span class="fc" id="L46">        return result;</span>
+    }
+
+    private ShoppingListEntryView transformToView(ShoppingListEntryEntity entity){
+<span class="fc" id="L50">        ShoppingListEntryView result = null;</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if(entity != null){</span>
+<span class="fc" id="L52">            result = ShoppingListEntryView.builder()</span>
+<span class="fc" id="L53">                    .itemName(entity.getItemName())</span>
+<span class="fc" id="L54">                    .amount(entity.getQuantity())</span>
+<span class="fc" id="L55">                    .build();</span>
+        }
+<span class="fc" id="L57">        return result;</span>
+    }
+
+    private ShoppingListEntryEntity transformToEntity(ShoppingListEntryView view){
+<span class="fc" id="L61">        ShoppingListEntryEntity result = null;</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if(view != null){</span>
+<span class="fc" id="L63">            result = new ShoppingListEntryEntity();</span>
+<span class="fc" id="L64">            result.setItemName(view.getItemName());</span>
+<span class="fc" id="L65">            result.setQuantity(view.getAmount());</span>
+        }
+<span class="fc" id="L67">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

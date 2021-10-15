@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShoppingListTransformer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unittestdemo</a> &gt; <a href="index.source.html" class="el_package">com.epam.example.shoppinglist.web.transformer</a> &gt; <span class="el_source">ShoppingListTransformer.java</span></div><h1>ShoppingListTransformer.java</h1><pre class="source lang-java linenums">package com.epam.example.shoppinglist.web.transformer;
+
+import com.epam.example.shoppinglist.data.domain.ShoppingListEntity;
+import com.epam.example.shoppinglist.web.domain.ShoppingListView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * Transformer class that transforms {@link ShoppingListEntity} objects to {@link ShoppingListView}.
+ */
+@Component
+public class ShoppingListTransformer {
+
+    private EntryTransformer transformer;
+
+    @Autowired
+<span class="fc" id="L17">    public ShoppingListTransformer(EntryTransformer transformer) {</span>
+<span class="fc" id="L18">        this.transformer = transformer;</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Transforms a {@link ShoppingListEntity} to a {@link ShoppingListView}.
+     *
+     * @param entity A {@link ShoppingListEntity} to be transformed.
+     * @return A transformed {@link ShoppingListView} or null if called with null.
+     */
+    public ShoppingListView transformToView(ShoppingListEntity entity){
+<span class="fc" id="L28">        ShoppingListView result = null;</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if(entity != null){</span>
+<span class="fc" id="L30">            result = ShoppingListView.builder()</span>
+<span class="fc" id="L31">                    .name(entity.getName())</span>
+<span class="fc" id="L32">                    .entries(transformer.transformToView(entity.getEntries()))</span>
+<span class="fc" id="L33">                    .build();</span>
+        }
+<span class="fc" id="L35">        return result;</span>
+    }
+
+    /**
+     * Transforms a {@link ShoppingListView} to a {@link ShoppingListEntity}.
+     *
+     * @param view A {@link ShoppingListView} to be transformed.
+     * @return A transformed {@link ShoppingListEntity} or null if called with null.
+     */
+    public ShoppingListEntity transformToEntity(ShoppingListView view){
+<span class="fc" id="L45">        ShoppingListEntity result = null;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(view != null){</span>
+<span class="fc" id="L47">            result = new ShoppingListEntity();</span>
+<span class="fc" id="L48">            result.setName(view.getName());</span>
+<span class="fc" id="L49">            result.setEntries(transformer.transformToEntity(view.getEntries()));</span>
+        }
+<span class="fc" id="L51">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

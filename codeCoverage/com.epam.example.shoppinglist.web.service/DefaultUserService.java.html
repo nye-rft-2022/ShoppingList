@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultUserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unittestdemo</a> &gt; <a href="index.source.html" class="el_package">com.epam.example.shoppinglist.web.service</a> &gt; <span class="el_source">DefaultUserService.java</span></div><h1>DefaultUserService.java</h1><pre class="source lang-java linenums">package com.epam.example.shoppinglist.web.service;
+
+import com.epam.example.shoppinglist.data.dao.UserDataAccessObjectInterface;
+import com.epam.example.shoppinglist.data.domain.UserEntity;
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
+import com.epam.example.shoppinglist.web.domain.UserView;
+import com.epam.example.shoppinglist.web.transformer.UserTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Default implementation of {@link UserServiceInterface}.
+ */
+@Service
+public class DefaultUserService implements UserServiceInterface{
+
+    private UserDataAccessObjectInterface userDataAccessObject;
+    private UserTransformer transformer;
+
+    @Autowired
+<span class="fc" id="L25">    public DefaultUserService(UserDataAccessObjectInterface userDataAccessObject, UserTransformer transformer) {</span>
+<span class="fc" id="L26">        this.userDataAccessObject = userDataAccessObject;</span>
+<span class="fc" id="L27">        this.transformer = transformer;</span>
+<span class="fc" id="L28">    }</span>
+
+    @Override
+    public UserView getUserById(Long id) {
+<span class="fc" id="L32">        UserEntity userEntity = userDataAccessObject.getUserById(id);</span>
+<span class="fc" id="L33">        return transformer.transform(userEntity);</span>
+    }
+
+    @Override
+    public List&lt;UserView&gt; getAllUser() {
+<span class="fc" id="L38">        Collection&lt;UserEntity&gt; userEntities  = userDataAccessObject.getAllUser();</span>
+<span class="fc" id="L39">        List&lt;UserView&gt; users = transformer.transform(userEntities);</span>
+<span class="fc" id="L40">        return users.stream()</span>
+<span class="fc" id="L41">                .sorted()</span>
+<span class="fc" id="L42">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public void addUser(CreateUserRequest request) {
+<span class="fc" id="L47">        UserEntity userEntity = transformer.transform(request);</span>
+<span class="fc" id="L48">        userDataAccessObject.addUser(userEntity);</span>
+<span class="fc" id="L49">    }</span>
+
+    @Override
+    public void deleteUserById(Long id) {
+<span class="nc" id="L53">        userDataAccessObject.deleteUserById(id);</span>
+<span class="nc" id="L54">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

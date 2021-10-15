@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">unittestdemo</a> &gt; <a href="index.source.html" class="el_package">com.epam.example.shoppinglist.web.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.epam.example.shoppinglist.web.controller;
+
+import com.epam.example.shoppinglist.web.domain.CreateUserRequest;
+import com.epam.example.shoppinglist.web.domain.UserView;
+import com.epam.example.shoppinglist.error.EmailAlreadyInUseException;
+import com.epam.example.shoppinglist.error.UserNotFoundException;
+import com.epam.example.shoppinglist.web.service.UserServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+/**
+ * REST Controller that handles User related operations.
+ */
+@RestController
+public class UserController {
+
+    private static final String GET_USER_MAPPING = &quot;/user/{id}&quot;;
+    private static final String GET_ALL_USER_MAPPING = &quot;/user/users&quot;;
+    private static final String ADD_USER = &quot;/user/add&quot;;
+    private static final String DELETE_USER_MAPPING = &quot;/user/delete/{id}&quot;;
+
+    private UserServiceInterface userService;
+
+    @Autowired
+<span class="fc" id="L30">    public UserController(UserServiceInterface userService) {</span>
+<span class="fc" id="L31">        this.userService = userService;</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Returns a {@link UserView} as JSON.
+     *
+     * @param id The id of the user.
+     * @return A {@link UserView} with the given id or {@link UserNotFoundException} if no user with the given id exists.
+     */
+    @GetMapping(path = GET_USER_MAPPING)
+    public UserView getUser(@PathVariable @NotNull Long id){
+<span class="fc" id="L42">        return userService.getUserById(id);</span>
+    }
+
+    /**
+     * Returns all users as JSON.
+     *
+     * @return A {@link List} of {@link UserView}.
+     */
+    @GetMapping(path = GET_ALL_USER_MAPPING)
+    public List&lt;UserView&gt; getAllUser(){
+<span class="fc" id="L52">        return userService.getAllUser();</span>
+    }
+
+
+    /**
+     * Adds a user to the DB.
+     * If the users email already in use will throw {@link EmailAlreadyInUseException}.
+     *
+     * @param request A {@link CreateUserRequest} that will be added to the DB.
+     */
+    @PostMapping(path = ADD_USER)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUser(@Valid @RequestBody CreateUserRequest request){
+<span class="fc" id="L65">         userService.addUser(request);</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Deletes user from the DB.
+     *
+     * @param id The id of the user.
+     */
+    @DeleteMapping(DELETE_USER_MAPPING)
+    public void deleteUser(@PathVariable @NotNull Long id){
+<span class="fc" id="L75">        userService.deleteUserById(id);</span>
+<span class="fc" id="L76">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
