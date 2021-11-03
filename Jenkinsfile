@@ -11,5 +11,10 @@ pipeline {
                 sh 'java -version'
             }
         }
+        stage('verify shoppinglist build') {
+            steps {
+                sh 'mvn verify'
+            }
+        }
     }
 }
