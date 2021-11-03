@@ -18,3 +18,8 @@ jobs:
         run: mvn test
       - name: Generate JaCoCo coverage report
         run: mvn jacoco:report
+      - name: Publish JaCoCo coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: shopping-list-coverage
+          path: ./target/site/jacoco
