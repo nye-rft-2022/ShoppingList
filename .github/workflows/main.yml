@@ -17,8 +17,10 @@ jobs:
       - name: Run unit tests for the ShoppingList project
         run: mvn test
       - name: Generate JaCoCo coverage report
+        if: always()
         run: mvn jacoco:report
       - name: Publish JaCoCo coverage report
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: shopping-list-coverage
