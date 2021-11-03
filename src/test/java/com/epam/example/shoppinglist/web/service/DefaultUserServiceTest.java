@@ -18,7 +18,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -83,7 +82,7 @@ public class DefaultUserServiceTest {
         then(transformer).should().transform(entity);
     }
 
-    @Test(expectedExceptions = IOException.class)
+    @Test(expectedExceptions = UserNotFoundException.class)
     public void testGetUserByIdShouldThrowUserNotFoundExceptionWhenCalledWithInvalidId() {
         //given
         UserEntity entity = createUserEntity(USER_ID, USER_NAME, LIST_ID, LIST_NAME);
