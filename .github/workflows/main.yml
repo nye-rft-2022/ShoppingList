@@ -16,3 +16,5 @@ jobs:
         run: mvn compile
       - name: Run unit tests for the ShoppingList project
         run: mvn test
+      - name: Generate JaCoCo coverage report
+        run: mvn jacoco:report
