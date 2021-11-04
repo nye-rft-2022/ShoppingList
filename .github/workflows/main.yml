@@ -16,3 +16,5 @@ jobs:
         run: mvn compile
       - name: Run unit tests on the project
         run: mvn test
+      - name: Generate jacoco report
+        run: mvn jacoco:report
