@@ -25,3 +25,10 @@ jobs:
         with:
           name: shopping-list-coverage
           path: ./target/site/jacoco
+      - name: Package the application
+        run: mvn package
+      - name: Publish the application
+        uses: actions/upload-artifact@v2
+        with:
+          name: shopping-list-war
+          path: ./target/unittestdemo*
