@@ -11,5 +11,10 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+        stage('verify application') {
+                    steps {
+                        sh 'mvn verify'
+                    }
+                }
     }
 }
