@@ -83,7 +83,7 @@ public class DefaultUserServiceTest {
         then(transformer).should().transform(entity);
     }
 
-    @Test(expectedExceptions = IOException.class)
+    @Test(expectedExceptions = UserNotFoundException.class)
     public void testGetUserByIdShouldThrowUserNotFoundExceptionWhenCalledWithInvalidId() {
         //given
         UserEntity entity = createUserEntity(USER_ID, USER_NAME, LIST_ID, LIST_NAME);
