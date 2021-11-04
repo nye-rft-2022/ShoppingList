@@ -14,3 +14,5 @@ jobs:
           distribution: 'adopt'
       - name: Compile the project
         run: mvn compile
+      - name: Run unit tests on the project
+        run: mvn test
