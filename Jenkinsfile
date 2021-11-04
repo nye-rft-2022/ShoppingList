@@ -6,5 +6,10 @@ pipeline {
                 sh 'mvn --version'
             }
         }
+        stage('compile application') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
     }
 }
