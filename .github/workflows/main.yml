@@ -16,3 +16,10 @@ jobs:
         run: mvn compile
       - name: Test with Maven
         run: mvn test
+      - name: Code coverage with JaCoCo
+        run: mvn jacoco:report
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: shopping-list-coverage
+          path: ./target/site/jacoco
