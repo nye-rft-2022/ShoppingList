@@ -80,7 +80,6 @@ public class DefaultUserServiceTest {
         assertEquals(actual, expected);
         then(userDataAccessObject).should().getUserById(USER_ID);
         then(transformer).should().transform(entity);
-        assertEquals(1,2);
     }
 
     @Test(expectedExceptions = UserNotFoundException.class)
