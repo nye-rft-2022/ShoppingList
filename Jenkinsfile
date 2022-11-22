@@ -13,5 +13,11 @@ pipeline {
             }
         }
 
+        stage('Upload test results') {
+            steps {
+                junit '**/target/*.xml'
+            }
+        }
+
     }
 }
