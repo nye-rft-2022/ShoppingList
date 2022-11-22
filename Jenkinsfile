@@ -10,6 +10,7 @@ pipeline {
         stage('Build Shopping List') {
             steps {
                 sh 'mvn package'
+                archiveArtifacts artifacts: '**/target/*.war'
             }
         }
     }
