@@ -13,11 +13,13 @@ pipeline {
             }
         }
 
-        stage('Upload test results') {
-            steps {
+        post {
+            always {
                 junit '**/target/surefire-reports/junitreports/*'
             }
         }
+
+
 
     }
 }
