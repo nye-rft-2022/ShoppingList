@@ -15,8 +15,10 @@ jobs:
       - name: Package with maven
         run: mvn package
       - name: Generate JaCoCo report
+        if: always()
         run: mvn jacoco:report
       - name: Publish Coverage report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: shopping-list-coverage
