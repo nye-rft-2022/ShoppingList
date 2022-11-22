@@ -12,5 +12,5 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Compile with maven
-        run: mvn compile
+      - name: Test with maven
+        run: mvn test
