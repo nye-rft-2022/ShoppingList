@@ -6,6 +6,12 @@ pipeline {
                 sh 'mvn --version'
             }
         }
-    }
 
+        stage('Build Shopping List') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
+    }
 }
