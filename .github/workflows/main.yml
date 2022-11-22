@@ -14,3 +14,10 @@ jobs:
           distribution: 'adopt'
       - name: Test with maven
         run: mvn test
+      - name: Generate JaCoCo report
+        run: mvn jacoco:report
+      - name: Publish Coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: shopping-list-coverage
+          path: ./target/site/jacoco
