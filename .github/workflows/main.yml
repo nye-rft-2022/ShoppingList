@@ -21,3 +21,8 @@ jobs:
         with:
           name: shopping-list-coverage
           path: ./target/site/jacoco
+      - name: Publish build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: shopping-list-jar
+          path: ./target/unittestdemo-*.war
