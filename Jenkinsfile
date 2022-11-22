@@ -12,14 +12,10 @@ pipeline {
                 sh 'mvn package'
             }
         }
-
-        post {
-            always {
-                junit '**/target/surefire-reports/junitreports/*'
-            }
+    }
+    post {
+        always {
+            junit '**/target/surefire-reports/junitreports/*'
         }
-
-
-
     }
 }
