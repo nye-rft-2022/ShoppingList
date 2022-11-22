@@ -12,8 +12,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Test with maven
-        run: mvn test
+      - name: Package with maven
+        run: mvn package
       - name: Generate JaCoCo report
         run: mvn jacoco:report
       - name: Publish Coverage report
