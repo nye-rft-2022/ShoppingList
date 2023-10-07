@@ -17,8 +17,10 @@ jobs:
             - name: Run tests
               run: mvn test
             - name: Coverage with JaCoCo
+              if: always()
               run: mvn jacoco:report
             - name: Publish coverage report
+              if: always()
               uses: actions/upload-artifact@v3
               with:
                 name: shopping-list-coverage
