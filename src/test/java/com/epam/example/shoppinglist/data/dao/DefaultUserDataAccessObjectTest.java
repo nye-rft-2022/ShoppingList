@@ -90,7 +90,6 @@ public class DefaultUserDataAccessObjectTest {
 
         //then
         assertEquals(actual, expected);
-        assertEquals(1, 2);
         then(userRepository).should().findAll();
     }
 
