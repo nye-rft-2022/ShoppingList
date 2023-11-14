@@ -18,6 +18,8 @@ jobs:
           step: restore
       - name: Compile Shoppinglist
         run: mvn compile
+      - name: Test Shoppinglist
+        run: mvn test
       - name: Save Maven cache
         uses: skjolber/maven-cache-github-action@v1
         with:
