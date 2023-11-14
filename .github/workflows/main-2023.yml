@@ -20,6 +20,13 @@ jobs:
         run: mvn compile
       - name: Test Shoppinglist
         run: mvn test
+      - name: Generate JaCoCo Report
+        run: mvn jacoco:report
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ./target/site/jacoco
       - name: Save Maven cache
         uses: skjolber/maven-cache-github-action@v1
         with:
