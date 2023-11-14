@@ -12,5 +12,13 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
+      - name: Restore Maven cache
+        uses: skjolber/maven-cache-github-action@v1
+        with:
+          step: restore
       - name: Compile Shoppinglist
         run: mvn compile
+      - name: Save Maven cache
+        uses: skjolber/maven-cache-github-action@v1
+        with:
+          step: save
