@@ -11,9 +11,9 @@ pipeline {
                 sh 'java -version'
             }
         }
-        stage('check maven version') {
+        stage('run tests') {
             steps {
-                sh 'mvn verify'
+                sh 'mvn test'
             }
         }
 
