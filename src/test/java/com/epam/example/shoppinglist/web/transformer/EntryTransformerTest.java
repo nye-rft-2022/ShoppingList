@@ -40,7 +40,7 @@ public class EntryTransformerTest {
         List<ShoppingListEntryView> actual = underTest.transformToView(null);
 
         //then
-        assertNull("actual");
+        assertNull(actual);
     }
 
     @Test
